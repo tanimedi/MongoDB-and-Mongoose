@@ -124,14 +124,14 @@ var removeManyPeople = function(done) {
 var queryChain = function(done) {
   var foodToSearch = "eggs";
   Person.find({ favoriteFoods: foodToSearch })
-    .sort({ name: 'asc' })
+    .sort({ name: 1 })
     .limit(2)
-    .select('-age'})
-    .exec((err, filteredResults) => {
+    .select({age:0})
+    .exec((err, data) => {
       if (err) {
         console.log(err)
       }else{
-      done(null, filteredResults);
+      done(null, data);
     }
   });
 };
