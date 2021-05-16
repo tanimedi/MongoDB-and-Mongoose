@@ -128,9 +128,12 @@ var queryChain = function(done) {
     .limit(2)
     .select('-age'})
     .exec((err, filteredResults) => {
-      if (err) return console.log(err);
+      if (err) {
+        console.log(err)
+      }else{
       done(null, filteredResults);
-    });
+    }
+  });
 };
 
 /** **Well Done !!**
