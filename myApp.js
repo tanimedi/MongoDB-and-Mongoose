@@ -122,11 +122,11 @@ var removeManyPeople = function(done) {
 };
 
 var queryChain = function(done) {
-  var foodToSearch = "Pizza";
+  var foodToSearch = "eggs";
   Person.find({ favoriteFoods: foodToSearch })
-    .sort({ name: 1 })    //<--Edited By Akhil Nayak 0206---> 1 means ascending.
+    .sort({ name: 1 })    .
     .limit(2)
-    .select({ age: 0 })   //<--Edited By Akhil Nayak 0206---> 0 means hide.
+    .select({ age: 0 })
     .exec((err, data) => {
       if (err) return console.log(err);
       done(null, data);
