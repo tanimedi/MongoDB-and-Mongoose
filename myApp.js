@@ -124,7 +124,7 @@ var removeManyPeople = function(done) {
 var queryChain = function(done) {
   var foodToSearch = "eggs";
   Person.find({ favoriteFoods: foodToSearch })
-    .sort({ name: 'asc' })    .
+    .sort({ name: 'asc' })
     .limit(2)
     .select('-age'})
     .exec((err, filteredResults) => {
