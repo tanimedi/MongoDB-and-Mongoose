@@ -43,50 +43,92 @@ jake.save(function(err, data) {
 });
 };
 
+let arrayOfPeople = [
+  {name: "Sam", age: 34, favoriteFoods: ["chicken"]},
+  {name: "Evan", age: 26, favoriteFoods: ["mango"]},
+  {name: "Pearl", age: 58, favoriteFoods: ["eggs"]}
+];
 
-
-const createManyPeople = (arrayOfPeople, done) => {
-  done(null /*, data*/);
+var createManyPeople = function(arrayOfPeople, done) {
+  Person.create(arrayOfPeople, function (err, people) {
+    if (err) return console.log(err);
+    done(null, people);
+  });
 };
 
-const findPeopleByName = (personName, done) => {
-  done(null /*, data*/);
+
+var findPeopleByName = function(personName, done) {
+  Person.find({name: personName}, function (err, personFound) {
+    if (err) return console.log(err);
+    done(null, personFound);
+  });
 };
 
-const findOneByFood = (food, done) => {
-  done(null /*, data*/);
+var findOneByFood = function(food, done) {
+  Person.findOne({favoriteFoods: food}, function (err, data) {
+    if (err) return console.log(err);
+    done(null, data);
+  });
 };
 
-const findPersonById = (personId, done) => {
-  done(null /*, data*/);
+var findPersonById = function(personId, done) {
+  Person.findById(personId, function (err, data) {
+    if (err) return console.log(err);
+    done(null, data);
+  });
 };
 
-const findEditThenSave = (personId, done) => {
-  const foodToAdd = "hamburger";
+let findEditThenSave = (personId, done) => {
+  let foodToAdd = "hamburger";
 
-  done(null /*, data*/);
+  Person.findById(personId, (err, data) => {
+    data.favoriteFoods.push(foodToAdd);
+    data.save();
+    console.log("hep", data);
+    if (err) return console.log(err);
+    done(null, data);
+  });
 };
 
-const findAndUpdate = (personName, done) => {
-  const ageToSet = 20;
+var findAndUpdate = function(personName, done) {
+  var ageToSet = 20;
 
-  done(null /*, data*/);
+  Person.findOneAndUpdate(
+    { name: personName },
+    { $set: { age: ageToSet } },
+    { new: true },
+    (err, data) => {
+      if (err) return console.log(err);
+      done(null, data);
+    }
+  );
 };
 
-const removeById = (personId, done) => {
-  done(null /*, data*/);
+var removeById = function(personId, done) {
+  Person.findByIdAndRemove({ _id: personId }, (err, data) => {
+    if (err) return console.log(err);
+    done(null, data);
+  });
 };
 
-const removeManyPeople = (done) => {
-  const nameToRemove = "Mary";
-
-  done(null /*, data*/);
+var removeManyPeople = function(done) {
+  var nameToRemove = "Mary";
+  Person.remove({ name: nameToRemove }, (err, data) => {
+    if (err) return console.log(err);
+    done(null, data);
+  });
 };
 
-const queryChain = (done) => {
-  const foodToSearch = "burrito";
-
-  done(null /*, data*/);
+var queryChain = function(done) {
+  var foodToSearch = "Pizza";
+  Person.find({ favoriteFoods: foodToSearch })
+    .sort({ name: 1 })    //<--Edited By Akhil Nayak 0206---> 1 means ascending.
+    .limit(2)
+    .select({ age: 0 })   //<--Edited By Akhil Nayak 0206---> 0 means hide.
+    .exec((err, data) => {
+      if (err) return console.log(err);
+      done(null, data);
+    });
 };
 
 /** **Well Done !!**
