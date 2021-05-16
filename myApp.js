@@ -46,7 +46,7 @@ jake.save(function(err, data) {
 let arrayOfPeople = [
   {name: "Sam", age: 34, favoriteFoods: ["chicken"]},
   {name: "Evan", age: 26, favoriteFoods: ["mango"]},
-  {name: "Pearl", age: 58, favoriteFoods: ["eggs"]}
+  {name: "Pearl", age: 58, favoriteFoods: ["burrito"]}
 ];
 
 var createManyPeople = function(arrayOfPeople, done) {
@@ -122,7 +122,7 @@ var removeManyPeople = function(done) {
 };
 
 var queryChain = function(done) {
-  var foodToSearch = "eggs";
+  var foodToSearch = "burrito";
   Person.find({ favoriteFoods: foodToSearch })
     .sort({ name: 1 })
     .limit(2)
